@@ -3,9 +3,22 @@
 [![NPM version](https://img.shields.io/npm/v/codemirror-ot.svg)](https://www.npmjs.com/package/codemirror-ot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Real-time collaboration plugin for CodeMirror 6. For background & writeup, see [Medium: Codemirror 6 Experiments](https://medium.com/@currankelleher/codemirror-6-experiments-a3930bf03781). Overhauled in May 2022 to work with the latest CodeMirror 6 APIs and [JSON1](https://github.com/ottypes/json1). A fully functioning collaborative editor that leverages this library can be found in [VZCode](https://github.com/vizhub-core/vzcode).
+Real-time collaboration plugin for CodeMirror 6. For background & writeup, see [Medium: Codemirror 6 Experiments](https://medium.com/@currankelleher/codemirror-6-experiments-a3930bf03781). Overhauled in May 2022 to work with the latest CodeMirror 6 APIs and [JSON1](https://github.com/ottypes/json1). A fully functioning collaborative editor that leverages this library can be found in [VZCode](https://github.com/vizhub-studio/vzcode).
 
 At its core this library is a translator between [Operational Transformation](https://github.com/ottypes/json1) and [CodeMirror 6](https://codemirror.net/6/). This is one piece of the puzzle for enabling real-time collaboration on text documents using CodeMirror and [ShareDB](https://github.com/teamwork/sharedb).
+
+## Architecture and maintainer verification
+
+This is an **OT ↔ CodeMirror 6 adapter**; it is not a standalone collaboration server. The consumer must provide and authorize a ShareDB document and select the correct OT type. The current source separates [integration](src/integration.js), [translation](src/translation.js), and [file operations](src/fileOp.js).
+
+```bash
+npm ci
+npm run build
+npm test
+npm run lint
+```
+
+The scripts invoke Rollup, Mocha and a POSIX-oriented build command; they may need a compatible shell. Before updating examples, inspect exports in [`src/index.js`](src/index.js). The VZCode editor is maintained at [`vizhub-studio/vzcode`](https://github.com/vizhub-studio/vzcode), not the earlier `vizhub-core` path.
 
 ## Overview
 
@@ -271,7 +284,7 @@ The test suite includes comprehensive coverage of:
 - [CodeMirror 6](https://codemirror.net/6/) - The text editor this library integrates with
 - [ShareDB](https://github.com/teamwork/sharedb) - Real-time database with OT support
 - [JSON1](https://github.com/ottypes/json1) - JSON operational transformation type
-- [VZCode](https://github.com/vizhub-core/vzcode) - Collaborative code editor using this library
+- [VZCode](https://github.com/vizhub-studio/vzcode) - Collaborative code editor using this library
 
 ## Contributing
 
